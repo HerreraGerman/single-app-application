@@ -9,11 +9,6 @@ import ProjectDetails from "../pages/ProjectDetails";
 import Settings from "../pages/Settings";
 import Login from "../pages/Login";
 import "../components/styles/App.css";
-
-const isAuthenticated = () => {
-  return localStorage.getItem("authToken") !== null;
-};
-
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -22,52 +17,47 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: isAuthenticated() ? <Home /> : <Login />,
+    element: <Home />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/home",
-    element: isAuthenticated() ? <Home /> : <Login />,
+    element: <Home />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-projects",
-    element: isAuthenticated() ? <MyProjects /> : <Login />,
+    element: <MyProjects />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-projects/:projectId",
-    element: isAuthenticated() ? <ProjectDetails /> : <Login />,
+    element: <ProjectDetails />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-projects/:projectId/:epicId",
-    element: isAuthenticated() ? <Epic /> : <Login />,
+    element: <Epic />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-projects/:projectId/:epicId/:storyId",
-    element: isAuthenticated() ? <Story /> : <Login />,
-    errorElement: <ErrorBoundary />,
-  },
-  {
-    path: "/my-projects/:projectId/:epicId/:storyId/:taskId",
-    element: <p>Not yet</p>,
+    element: <Story />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-stories",
-    element: isAuthenticated() ? <MyStories /> : <Login />,
+    element: <MyStories />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/my-stories/:storyId",
-    element: isAuthenticated() ? <Story /> : <Login />,
+    element: <Story />,
     errorElement: <ErrorBoundary />,
   },
   {
     path: "/settings",
-    element: isAuthenticated() ? <Settings /> : <Login />,
+    element: <Settings />,
     errorElement: <ErrorBoundary />,
   },
 ]);

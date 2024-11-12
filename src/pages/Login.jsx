@@ -25,14 +25,18 @@ const Login = ({ onLogin }) => {
             // Obtiene la respuesta en formato JSON
             const data = await response.json();
             if (response.ok) {
+                localStorage.setItem("authToken", data.token);
+                localStorage.setItem("username", username);
+                localStorage.setItem("email", data.user.email);
+
                 // ...Si la respuesta es correcta, guarda el token y el nombre de usuario en localStorage
                 onLogin(data.token); // Llama a la función onLogin pasada como prop, pasando el token
-                alert("Successful Login!");
             } else {
                 alert("Login failed: " + data.message); // Muestra un mensaje de error si el login falla
             }
         } catch (error) {
             console.error("Error:", error); // Maneja cualquier error durante la solicitud
+            alert("Error while trying to log in");
         }
     };
 

@@ -219,8 +219,9 @@ p {
 }
 
 .card:hover {
-  background-color: rgba(211, 211, 211, 0.158);
+  background-color: rgba(211, 211, 211);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  transform: scale(1.025);
 }
 
 a {
@@ -241,4 +242,23 @@ li {
 .Edit {
   position: absolute;
   margin-left: 95%;
+}
+
+.logout-button {
+  width: 15%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 700;
+}
+
+.logout-button:hover{
+  background-color: rgba(211, 211, 211, 0.158);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }

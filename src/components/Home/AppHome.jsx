@@ -4,15 +4,16 @@ import * as AiIcons from "react-icons/ai";
 import "../styles/App.css";
 
 function AppHome() {
+    const username = localStorage.getItem('username');
 
     return (
         <main className="App-home">
             <div className='container'>
                 <h1>Home</h1>
-                <p>Home is still in development</p>
+                <p>Welcome to your Task Tracking App, {username}! Remember that home is still in development</p>
             </div>
-            <div className='card'><Link to={"/my-projects"}><AiIcons.AiFillFolder />My Projects</Link></div>
-            <div className='card'><Link to={"/my-stories"}><AiIcons.AiFillFolder />My Stories</Link></div>
+            <Link to={"/my-projects"}><div className='card'><AiIcons.AiFillFolder />My Projects</div></Link>
+            <Link to={"/my-stories"}><div className='card'><AiIcons.AiFillFolder />My Stories</div></Link>
         </main>
     )
 }

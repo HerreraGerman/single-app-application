@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useFetchUsersById from '../../hooks/hookUserById';
 import "../styles/App.css";
 
 const ProjectCard = ({ project }) => {
+
+  const memberIds = project.members;
+
+  const { usernames } = useFetchUsersById(memberIds);
 
   if (!project) {
     return null;
@@ -16,7 +21,12 @@ const ProjectCard = ({ project }) => {
             {project.icon}
             <h2>{project.name}</h2>
             <p>{project.description}</p>
-            <p>Members: {project.members.length > 0 ? project.members.join(', ') : "No members"}</p>
+            <p>
+              Members: {project.members.length > 0
+                ? project.members.map(memberId => usernames[memberId] || memberId).join(', ')
+                : "No members"
+              }
+            </p>
           </div>
         </Link>
       </div >
