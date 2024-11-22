@@ -24,7 +24,7 @@ export const Epic = () => {
                         {epic && (
                             <>
                                 <h3>{epic.name} {epic.icon}</h3>
-                                <p>Description: {epic.description}</p>
+                                <p>{epic.description}</p>
                                 <div>
                                     <h3>Stories:</h3>
                                     {

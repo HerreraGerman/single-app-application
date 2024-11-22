@@ -4,11 +4,13 @@ import useFetchProjectsById from "../hooks/hookMyProjectsByID";
 import useFetchEpics from '../hooks/hookEpics';
 import EpicCard from '../components/EpicCard/EpicCard';
 import '../components/styles/App.css';
+import useFetchUsersById from '../hooks/hookUserById';
 
 const ProjectDetails = () => {
     const { projectId } = useParams();
     const { data: projects, loading: loadingProjects } = useFetchProjectsById(projectId);
     const { data: epics, loading: loadingEpics} = useFetchEpics(projectId);
+    const { users: usernames, loading: usersLoading } = useFetchUsersById(projects?.members);
 
     return (
         <>
@@ -25,10 +27,12 @@ const ProjectDetails = () => {
                                 <p className='project-description'>{projects.description}</p>
                                 <p className='project-members'>
                                     Project Members: 
-                                    {projects.members.length > 0 ? (
+                                        {projects.members && projects.members.length > 0 ? (
                                         <ul>
-                                            {projects.members.map((member, index) => (
-                                                <li key={index}>{member}</li>
+                                            {projects.members.map((memberId) => (
+                                                <li key={memberId}>
+                                                    {usersLoading ? 'Loading...' : usernames[memberId]}
+                                                </li>
                                             ))}
                                         </ul>
                                     ) : (

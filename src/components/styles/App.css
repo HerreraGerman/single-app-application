@@ -199,6 +199,7 @@ p {
   border: 2px solid rgba(255, 255, 255, .2);
   backdrop-filter: blur(30px);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  border-radius: 10px;
   display: grid;
   max-width: 1200px;
   margin: 0 auto;
@@ -215,7 +216,6 @@ p {
   backdrop-filter: blur(80px);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   border-radius: 10px;
-  width: 60vw;
 }
 
 .card:hover {
@@ -258,7 +258,62 @@ li {
   font-weight: 700;
 }
 
-.logout-button:hover{
+.logout-button:hover {
   background-color: rgba(211, 211, 211, 0.158);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.task-button {
+  margin-left: 80%;
+  width: 10vh;
+  height: 25px;
+  background: #333;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.task-button:hover {
+  background-color: rgba(211, 211, 211, 0.158);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #333;
+}
+
+.delete-button {
+  width: 10vh;
+  height: 25px;
+  background: #333;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.delete-button:hover {
+  background-color: rgba(211, 211, 211, 0.158);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.modal-overlay {
+  background-color: rgba(211, 211, 211, 0);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  border-radius: 10px;
+  align-self: center;
+  margin-top: 10px;
 }
