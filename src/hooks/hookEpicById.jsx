@@ -4,36 +4,28 @@ export const useFetchEpicById = (epicId) => {
 
     const getEpicById = async (epicId) => {
 
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/epics/${epicId}`
+        const url = `http://localhost:3000/api/epics/${epicId}`
 
         const token = localStorage.getItem("authToken");
 
-        try{
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    auth: token,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
+        });
 
-            const { data } = await response.json();
+        const epics = await response.json();
 
-            return data;
-        } catch (error) {
-            console.error("Error fetching epics:", error);
-            throw error;
-        }
+        return epics;
     }
 
     const [state, setState] = useState({
         data: null,
         loading: true
-    })
+    });
+
     useEffect(() => {
         getEpicById(epicId)
             .then(epic => {
@@ -48,7 +40,7 @@ export const useFetchEpicById = (epicId) => {
                     loading: false
                 })
             })
-    }, [])
+    }, [epicId])
 
     return state;
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from "../components/NavBar/NavBar";
 import useFetchProjectsById from "../hooks/hookMyProjectsByID";
@@ -9,8 +10,15 @@ import useFetchUsersById from '../hooks/hookUserById';
 const ProjectDetails = () => {
     const { projectId } = useParams();
     const { data: projects, loading: loadingProjects } = useFetchProjectsById(projectId);
-    const { data: epics, loading: loadingEpics} = useFetchEpics(projectId);
+    const { data: epics, loading: loadingEpics } = useFetchEpics(projectId);
     const { users: usernames, loading: usersLoading } = useFetchUsersById(projects?.members);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setIsLoading(loadingProjects || usersLoading);
+    }, [loadingProjects, usersLoading]);
+    console.log("Datos en ProjectDetails:", projects);
 
     return (
         <>
@@ -23,15 +31,15 @@ const ProjectDetails = () => {
                     {projects && (
                         <>
                             <div>
-                                <h2 className='project-name'>{projects.name}</h2>
+                                <h2 className='project-name'><p>{projects.icon}</p>{projects.name}</h2>
                                 <p className='project-description'>{projects.description}</p>
                                 <p className='project-members'>
-                                    Project Members: 
-                                        {projects.members && projects.members.length > 0 ? (
+                                    Project Members:
+                                    {projects.members && projects.members.length > 0 ? (
                                         <ul>
                                             {projects.members.map((memberId) => (
                                                 <li key={memberId}>
-                                                    {usersLoading ? 'Loading...' : usernames[memberId]}
+                                                    {usersLoading ? 'Loading...' : usernames[memberId] && usernames[memberId].username}
                                                 </li>
                                             ))}
                                         </ul>
@@ -42,13 +50,14 @@ const ProjectDetails = () => {
                             </div>
                             <div className='container'>
                                 <h3>Epics:</h3>
-                                {
-                                    loadingEpics ? <p>Loading epics... </p> :
-                                        epics && epics.length > 0 ?
-                                            <ul>
-                                                {epics.map(epic => <EpicCard key={epic._id} epic={epic} />)}
-                                            </ul> : <p>This projects doesn't have epics</p>
-                                }
+                                {epics && (
+                                    <ul>
+                                        {epics.map(epic => (
+                                            <EpicCard key={epic._id}
+                                                epic={epic} />
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                         </>
                     )}

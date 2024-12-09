@@ -1,47 +1,55 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
-export const useFetchStories = () => {
-
-    const getProjects = async () => {
-        const url = 'https://lamansysfaketaskmanagerapi.onrender.com/api/stories'
-
-        const token = localStorage.getItem("authToken");
-
-        const resp = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                auth: token,
-            }
-        });
-
-        const { data } = await resp.json();
-
-        return data;
-    }
-
-
+export const useFetchUserStories = () => {
     const [state, setState] = useState({
         data: [],
-        loading: true
-    })
+        loading: true,
+        error: null
+    });
+
+    const getUserStories = async () => {
+        const url = 'http://localhost:3000/api/stories';
+        const token = localStorage.getItem("authToken");
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                return result.data;
+            } else {
+                throw new Error(result.message || "Error al obtener las historias");
+            }
+        } catch (error) {
+            console.error("Error al obtener las historias:", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
-        getProjects()
-            .then(projects => {
+        getUserStories()
+            .then(stories => {
                 setState({
-                    data: projects,
+                    data: stories,
                     loading: false,
-                })
+                    error: null
+                });
             })
-            .catch(() => {
+            .catch(error => {
                 setState({
                     data: [],
-                    loading: false
-                })
-            }
-            )
-    }, [])
+                    loading: false,
+                    error: error.message
+                });
+            });
+    }, []);
 
     return state;
-}
+};

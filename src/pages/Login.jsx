@@ -13,26 +13,26 @@ const Login = ({ onLogin }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // Realiza una solicitud POST a la API de inicio de sesión
-            const response = await fetch("https://lamansysfaketaskmanagerapi.onrender.com/api/login", {
+            //Realiza una solicitud POST a la API de inicio de sesión
+            const response = await fetch("http://localhost:3000/api/login", { // Cambia la URL aquí
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, password }), // Envía los datos de usuario y contraseña
+                body: JSON.stringify({ username, password }),
             });
 
-            // Obtiene la respuesta en formato JSON
+            //Obtiene la respuesta en formato JSON
             const data = await response.json();
             if (response.ok) {
                 localStorage.setItem("authToken", data.token);
                 localStorage.setItem("username", username);
                 localStorage.setItem("email", data.user.email);
 
-                // ...Si la respuesta es correcta, guarda el token y el nombre de usuario en localStorage
-                onLogin(data.token); // Llama a la función onLogin pasada como prop, pasando el token
+                //Si la respuesta es correcta, guarda el token y el nombre de usuario en localStorage
+                onLogin(data.token); //Llama a la función onLogin pasada como prop, pasando el token
             } else {
-                alert("Login failed: " + data.message); // Muestra un mensaje de error si el login falla
+                alert("Login failed: " + data.message); //Muestra un mensaje de error si el login falla
             }
         } catch (error) {
             console.error("Error:", error); // Maneja cualquier error durante la solicitud

@@ -41,16 +41,14 @@ const TaskForm = ({ storyId, onTaskAdded }) => {
             done: newTask.status === "DONE" // Si el estado es DONE, marca como completado
         };
         
-        
-    
         console.log("Data being sent:", taskData); // Revisa si dueDate es correcto
     
         try {
-            const response = await fetch('https://lamansysfaketaskmanagerapi.onrender.com/api/tasks', {
+            const response = await fetch(`http://localhost:3000/api/stories/${storyId}/tasks`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    auth: token,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
             });
@@ -77,9 +75,6 @@ const TaskForm = ({ storyId, onTaskAdded }) => {
             setIsSubmitting(false);
         }
     };
-    
-    
-    
 
     return (
         <div className="modal-overlay">

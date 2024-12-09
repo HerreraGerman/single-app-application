@@ -37,11 +37,11 @@ export const Story = () => {
         const token = localStorage.getItem("authToken");
 
         try {
-            const response = await fetch(`https://lamansysfaketaskmanagerapi.onrender.com/api/tasks/${taskToDelete._id}`, {
+            const response = await fetch(`http://localhost:3000/api/stories/${storyId}/tasks/${taskToDelete._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    auth: token,
+                    'Authorization': `Bearer ${token}`,
                 }
             });
 
