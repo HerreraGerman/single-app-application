@@ -8,7 +8,7 @@ const TaskList = ({ tasks, storyId, onDeleteClick }) => {
             {tasks.length > 0 ? (
                 <ul>
                     {tasks
-                        .filter(task => task.story === storyId)
+                        .filter(task => String(task.Story) === String(storyId))
                         .map(task => (
                             <div key={task._id} className="task-item">
                                 <Task task={task} />

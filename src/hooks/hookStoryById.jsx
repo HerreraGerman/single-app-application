@@ -4,7 +4,7 @@ export const useFetchStoryById = (storiesId) => {
 
     const getStoryById = async (storiesId) => {
 
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/stories/${storiesId}`;
+        const url = `http://localhost:3000/api/stories/${storiesId}`;
 
         const token = localStorage.getItem("authToken");
 
@@ -12,7 +12,7 @@ export const useFetchStoryById = (storiesId) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                auth: token,
+                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -20,8 +20,8 @@ export const useFetchStoryById = (storiesId) => {
             throw new Error(`Error: ${response.status}`);
         }
 
-        const { data } = await response.json();
-        return data;
+        const story = await response.json();
+        return story;
     };
 
     const [state, setState] = useState({

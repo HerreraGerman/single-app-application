@@ -1,10 +1,10 @@
 import StoriesCard from "../components/StoriesCard/StoriesCard";
 import Navbar from "../components/NavBar/NavBar";
-import { useFetchStories } from '../hooks/hookMyStories';
+import { useFetchUserStories } from '../hooks/hookMyStories';
 
 const MyStories = () => {
 
-    const { data: stories, loading: loadingStories } = useFetchStories();
+    const { data: stories, loading: loadingStories } = useFetchUserStories();
 
     return (
         <>

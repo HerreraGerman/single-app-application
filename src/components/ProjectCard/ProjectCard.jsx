@@ -9,10 +9,6 @@ const ProjectCard = ({ project }) => {
 
   const { usernames } = useFetchUsersById(memberIds);
 
-  if (!project) {
-    return null;
-  }
-
   return (
     <>
       <div>

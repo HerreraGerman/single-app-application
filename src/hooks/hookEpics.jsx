@@ -4,7 +4,7 @@ export const useFetchEpics = (projectId) => {
 
     const getEpics = async (projectId) => {
 
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/projects/${projectId}/epics`
+        const url = `http://localhost:3000/api/projects/${projectId}/epics`
 
         const token = localStorage.getItem("authToken");
 
@@ -12,7 +12,7 @@ export const useFetchEpics = (projectId) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                auth: token,
+                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -20,9 +20,9 @@ export const useFetchEpics = (projectId) => {
             throw new Error(`Error: ${response.status}`);
         }
 
-        const { data } = await response.json();
+        const epics = await response.json();
 
-        return data;
+        return epics;
     }
 
     const [state, setState] = useState({
@@ -39,7 +39,8 @@ export const useFetchEpics = (projectId) => {
                     loading: false
                 })
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error)
                 setState({
                     data: null,
                     loading: false
